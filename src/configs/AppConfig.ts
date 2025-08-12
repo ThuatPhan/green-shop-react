@@ -1,0 +1,8 @@
+export const envConfig = {
+  BASE_API_URL: import.meta.env.VITE_BASE_API_URL,
+  AUTH0_DOMAIN: import.meta.env.VITE_AUTH0_DOMAIN,
+  AUTH0_CLIENT_ID: import.meta.env.VITE_AUTH0_CLIENT_ID,
+  AUTH0_AUDIENCE: import.meta.env.VITE_AUTH0_AUDIENCE,
+  CLOUDINARY_PRESET: import.meta.env.VITE_CLOUDINARY_PRESET,
+  CLOUDINARY_CLOUD_NAME: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+};
