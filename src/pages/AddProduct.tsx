@@ -188,7 +188,7 @@ const AddProduct = () => {
 
         <button
           type="submit"
-          disabled={pending}
+          disabled={true}
           className={`px-8 py-2.5 font-medium rounded transition
           ${
             pending
