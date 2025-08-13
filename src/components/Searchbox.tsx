@@ -1,11 +1,10 @@
 import { assets } from "@/assets/assets";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Searchbox = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [inputValue, setInputValue] = useState(searchParams.get("q") || "");
 
@@ -18,18 +17,12 @@ const Searchbox = () => {
       event.preventDefault();
       const searchTerm = inputValue.trim();
 
-      if (location.pathname === "/") {
-        if (searchTerm) {
-          navigate(`/products?q=${searchTerm}`);
-        }
+      if (searchTerm) {
+        navigate(`/products?q=${encodeURIComponent(searchTerm)}`, {
+          replace: true,
+        });
       } else {
-        const newParams = new URLSearchParams(searchParams);
-        if (searchTerm) {
-          newParams.set("q", searchTerm);
-        } else {
-          newParams.delete("q");
-        }
-        setSearchParams(newParams);
+        navigate(`/products`, { replace: true });
       }
     }
   };

@@ -6,7 +6,7 @@ const Breadcrumbs: React.FC<{ product: Product }> = ({ product }) => {
     <div>
       <Link to="/">Home</Link> /<Link to="/products"> Products</Link> /{" "}
       <Link to={`/products/${product.category.slug}`} className="capitalize">
-        {product.category.slug.toLowerCase()}
+        {product.category.name.toLowerCase()}
       </Link>{" "}
       /<span className="text-primary"> {product.name}</span>
     </div>

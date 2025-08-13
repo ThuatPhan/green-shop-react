@@ -4,7 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 const useProducts = (searchQuery?: string) => {
   const query = useInfiniteQuery({
-    queryFn: ({ pageParam }) => getProducts(pageParam, 5, searchQuery),
+    queryFn: ({ pageParam }) => getProducts(pageParam, 10, searchQuery),
     queryKey: searchQuery
       ? [QUERY_KEYS.PRODUCTS, "query", searchQuery]
       : [QUERY_KEYS.PRODUCTS],

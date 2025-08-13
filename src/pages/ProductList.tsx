@@ -1,14 +1,30 @@
+import { Product } from "@/models/Product";
 import useProducts from "@/hooks/useProducts";
 import useUpdateProductInstock from "@/hooks/useUpdateProductInstock";
-import { Product } from "@/models/Product";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 
 const ProductList = () => {
   const { isPending: updating, mutateAsync: updateInstock } =
     useUpdateProductInstock();
-  const { isPending, products } = useProducts();
+  const {
+    isPending,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    products,
+  } = useProducts();
 
   const toggleInstock = async (product: Product) =>
     await updateInstock({ productId: product.id, inStock: !product.inStock });
+
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <div className="no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between">
@@ -89,6 +105,7 @@ const ProductList = () => {
             </tbody>
           </table>
         </div>
+        {hasNextPage && <div ref={ref} className="h-1" />}
       </div>
     </div>
   );

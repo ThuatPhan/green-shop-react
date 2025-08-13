@@ -15,6 +15,10 @@ const ProductDetails = () => {
   const { isPending: pendingAddItem, mutateAsync: addCartItem } =
     useAddCartItem();
 
+  if (loadingProduct) {
+    return <ProductDetailsSkeleton />;
+  }
+
   if (!product) {
     return <ErrorMessage message="Product not found" />;
   }
@@ -24,22 +28,17 @@ const ProductDetails = () => {
 
   return (
     <div className="mt-16">
-      {loadingProduct ? (
-        <ProductDetailsSkeleton />
-      ) : (
-        <>
-          <Breadcrumbs product={product} />
-          <div className="flex flex-col md:flex-row gap-16 mt-4">
-            <ProductImageGallery images={product.images} />
+      <Breadcrumbs product={product} />
 
-            <ProductInfo
-              product={product}
-              onAddToCart={handleAddToCart}
-              isAddingToCart={pendingAddItem}
-            />
-          </div>
-        </>
-      )}
+      <div className="flex flex-col md:flex-row gap-16 mt-4">
+        <ProductImageGallery images={product.images} />
+
+        <ProductInfo
+          product={product}
+          onAddToCart={handleAddToCart}
+          isAddingToCart={pendingAddItem}
+        />
+      </div>
 
       <RelatedProducts relatedTo={product} />
     </div>

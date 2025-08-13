@@ -28,3 +28,16 @@ axiosInstance.interceptors.request.use(async (config) => {
 
   return config;
 });
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const response = error?.response;
+    if (response) {
+      // Retrieve error code and message from server response
+      const { code, message } = response.data;
+      return Promise.reject({ code, message });
+    }
+    return Promise.reject(error);
+  }
+);
