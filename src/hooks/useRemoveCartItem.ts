@@ -9,11 +9,11 @@ const useRemoveCartItem = () => {
   return useMutation({
     mutationFn: removeCartItem,
     onSuccess: () => {
-      toast.success("Item removed from your cart");
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.CART_ITEMS],
         exact: false,
       });
+      toast.success("Item removed from your cart");
     },
   });
 };
